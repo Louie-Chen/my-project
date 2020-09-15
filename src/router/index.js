@@ -104,6 +104,18 @@ Vue.use(VueRouter)
       name: '查看訂單',
       component: UserCheckOrders ,
     },
+    {
+    path: '/admin',
+    name: 'Carousel',
+    component: ()=> import('../views/Carousel.vue'),
+    children:[
+      {
+        path: '/usercheckorder',
+        name: '查看訂單',
+        component: UserCheckOrders ,
+      },
+    ]   
+  }
 ]
 
 const router = new VueRouter({

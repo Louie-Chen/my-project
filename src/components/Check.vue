@@ -53,7 +53,7 @@
                             <button class="btn btn-outline-pink" type="button" @click="addCouponCode">套用優惠碼</button>
                         </div>
                     </div>
-                    <div class="float-right my-3">
+                    <div class="float-right my-3 mb-5">
                         <router-link to="/myproduct">
                             <button class="btn btn-indigo btn-lg mr-2" type="submit">繼續購物</button>
                         </router-link>

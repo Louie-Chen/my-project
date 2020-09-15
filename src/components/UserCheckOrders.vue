@@ -1,43 +1,45 @@
 <template>
 <div class="my-5">
     <loading :active.sync="isLoading"></loading>
-    <table class="table mt-4" v-if="orders.length">
-        <thead>
-            <tr>
-                <th>購買時間</th>
-                <th>Email</th>
-                <th>購買款項</th>
-                <th width="150">應付金額</th>
-                <th class="text-right">是否付款</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="item in sortOrder" :key="item.id" :class="{'text-secondary': !item.is_paid}">
-                <td>{{ item.create_at | date }}</td>
-                <td>
-                    <span v-text="item.user.email" v-if="item.user"></span>
-                </td>
-                <td>
-                    <ul class="list-unstyled">
-                        <li v-for="(product, i) in item.products" :key="i">
-                            {{ product.product.title }} 數量：{{ product.qty }}
-                            {{ product.product.unit }}
-                        </li>
-                    </ul>
-                </td>
-                <td class="text-right">{{ item.total | currency }}</td>
-                <td class="text-right">
-                    <span v-if="item.is_paid" class="text-success">已付款</span>
-                    <span v-else class="text-danger">尚未啟用</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="container-fluid pb-3">
-        <div class="row d-flex justify-content-center">
-            <pagination :pages="pagination" @changedpage="getOrders"></pagination>
-        </div>
+    <div class="col-sm-12">
+        <table class="table mt-4" v-if="orders.length">
+            <thead>
+                <tr>
+                    <th>購買時間</th>
+                    <th>Email</th>
+                    <th>購買款項</th>
+                    <th width="150">應付金額</th>
+                    <th class="text-right">是否付款</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in sortOrder" :key="item.id" :class="{'text-secondary': !item.is_paid}">
+                    <td>{{ item.create_at | date }}</td>
+                    <td>
+                        <span v-text="item.user.email" v-if="item.user"></span>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li v-for="(product, i) in item.products" :key="i">
+                                {{ product.product.title }} 數量：{{ product.qty }}
+                                {{ product.product.unit }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="text-right">{{ item.total | currency }}</td>
+                    <td class="text-right">
+                        <span v-if="item.is_paid" class="text-success">已付款</span>
+                        <span v-else class="text-danger">尚未啟用</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="container-fluid pb-3">
+            <div class="row d-flex justify-content-center">
+                <pagination :pages="pagination" @changedpage="getOrders"></pagination>
+            </div>
 
+        </div>
     </div>
 
 </div>
@@ -69,6 +71,7 @@ export default {
                     vm.pagination = response.data.pagination;
                 } else {
                     this.$bus.$emit('message:push', response.data.message, 'danger');
+                    vm.$router.push('/userlogin');
                 }
                 console.log(response.data);
             });
