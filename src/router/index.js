@@ -110,8 +110,8 @@ Vue.use(VueRouter)
     component: ()=> import('../views/Carousel.vue'),
     children:[
       {
-        path: '/usercheckorder',
-        name: '查看訂單',
+        path: 'usercheckorder',
+        name: '會員查看訂單',
         component: UserCheckOrders ,
       },
     ]   

@@ -53,8 +53,8 @@ export default {
     methods: {
         getOrders(currentPage = 1) {
             const vm = this;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/orders?page=${currentPage}`;
-            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPAH);
+            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${currentPage}`;
+            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
             vm.isLoading = true;
             this.$http.get(api).then((response) => {
                 vm.isLoading = false;

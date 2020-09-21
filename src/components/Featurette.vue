@@ -14,11 +14,11 @@
 
         </div>
         <hr class="featurette-divider">
-        <div class="row featurette" style="width:100%;">
+        <div class="row featurette">
             <div class="col-md-7 h-100 mb-3">
                 <vue-aos animation-class="fadeIn animated">
                     <div data-aos="fade-right">
-                        <h2 class="featurette-heading" style="margin-top:0.3rem;">ST-Stroe<span class="text-muted"></span></h2>
+                        <h2 class="featurette-heading text-center" style="margin-top:0.3rem;">ST-Stroe<span class="text-muted"></span></h2>
                         <p class="lead" style="color:#6E6EFF;">創立於2002年，主要銷售各類電競商品。當時創立因為深愛遊戲，希望把好東西像大家推廣。</p>
                     </div>
                 </vue-aos>

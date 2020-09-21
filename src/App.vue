@@ -1,29 +1,25 @@
 <template>
 <div id="app">
     <Alert />
-    <Navbar :key="$route.fullPath" />
+    <Navbar />
     <router-view />
     <Footer />
-
 </div>
 </template>
 
 <script>
 import Alert from './views/AlertMessage';
-import Navbar from './views/Navbar';
 import Footer from './components/Footer';
-
+import Navbar from './views/Navbar'
 export default {
     name: 'App',
     data() {
-        return {
-
-        }
+        return {}
     },
     components: {
         Alert,
-        Navbar,
         Footer,
+        Navbar,
     },
 }
 </script>

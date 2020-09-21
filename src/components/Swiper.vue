@@ -1,184 +1,198 @@
 <template>
-<swiper class="swiper row" ref="swiper" :options="swiperOption">
-    <swiper-slide>
-        <div class="container-fluid mb-5">
-            <div class="row d-flex justify-content-center">
-                <div class="" v-for="item in filterData" :key="item.id">
-                    <div class="card border-0 shadow-lg">
-                        <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
-                            </h5>
-                            <p class="card-text">{{item.content}}</p>
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
-                                <div class="ml-auto">
-                                    <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
+<div>
+    <loading :active.sync="isLoading"></loading>
+    <swiper class="swiper row" ref="swiper" :options="swiperOption">
+
+        <swiper-slide>
+            <div class="container-fluid mb-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="w-100" v-for="item in filterData" :key="item.id">
+                        <div class="card border-0 shadow-lg">
+                            <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
+                                </h5>
+                                <p class="card-text">{{item.content}}</p>
+                                <div class="d-flex justify-content-between align-items-baseline">
+                                    <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
+                                    <div class="ml-auto">
+                                        <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <router-link to="/myproduct">
-                                <button type="button" class="btn btn-outline-secondary btn-sm">
+                            <div class="card-footer d-flex">
+                                <router-link to="/myproduct">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
+                                        <font-awesome-icon :icon="['fas' ,'search']"></font-awesome-icon>
+                                        查看更多
+                                    </button>
+                                </router-link>
+                                <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
                                     <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                    查看更多
+                                    <font-awesome-icon :icon="['fas' ,'cart-plus']"></font-awesome-icon>
+                                    加到購物車
                                 </button>
-                            </router-link>
-                            <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
-                                <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                加到購物車
-                            </button>
-                        </div>
-                    </div>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-        </div>
-    </swiper-slide>
-    <swiper-slide>
-        <div class="container-fluid mb-5">
-            <div class="row d-flex justify-content-center">
-                <div class="" v-for="item in filterData2" :key="item.id">
-                    <div class="card border-0 shadow-lg">
-                        <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
-                            </h5>
-                            <p class="card-text">{{item.content}}</p>
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
-                                <div class="ml-auto">
-                                    <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
-                                </div>
                             </div>
                         </div>
-                        <div class="card-footer d-flex">
-                            <router-link to="/myproduct">
-                                <button type="button" class="btn btn-outline-secondary btn-sm">
-                                    <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                    查看更多
-                                </button>
-                            </router-link>
-                            <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
-                                <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                加到購物車
-                            </button>
-                        </div>
-                    </div>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-        </div>
-    </swiper-slide>
-    <swiper-slide>
-        <div class="container-fluid mb-5">
-            <div class="row d-flex justify-content-center">
-                <div class="" v-for="item in filterData3" :key="item.id">
-                    <div class="card border-0 shadow-lg">
-                        <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
-                            </h5>
-                            <p class="card-text">{{item.content}}</p>
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
-                                <div class="ml-auto">
-                                    <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
+                    </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <div class="container-fluid mb-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="w-100" v-for="item in filterData2" :key="item.id">
+                        <div class="card border-0 shadow-lg">
+                            <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
+                                </h5>
+                                <p class="card-text">{{item.content}}</p>
+                                <div class="d-flex justify-content-between align-items-baseline">
+                                    <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
+                                    <div class="ml-auto">
+                                        <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <router-link to="/myproduct">
-                                <button type="button" class="btn btn-outline-secondary btn-sm">
+                            <div class="card-footer d-flex">
+                                <router-link to="/myproduct">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
+                                        <font-awesome-icon :icon="['fas' ,'search']"></font-awesome-icon>
+                                        查看更多
+                                    </button>
+                                </router-link>
+                                <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
                                     <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                    查看更多
+                                    <font-awesome-icon :icon="['fas' ,'cart-plus']"></font-awesome-icon>
+                                    加到購物車
                                 </button>
-                            </router-link>
-                            <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
-                                <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                加到購物車
-                            </button>
-                        </div>
-                    </div>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-        </div>
-    </swiper-slide>
-    <swiper-slide>
-        <div class="container-fluid mb-5">
-            <div class="row d-flex justify-content-center">
-                <div class="" v-for="item in filterData4" :key="item.id">
-                    <div class="card border-0 shadow-lg">
-                        <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
-                            </h5>
-                            <p class="card-text">{{item.content}}</p>
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
-                                <div class="ml-auto">
-                                    <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
-                                </div>
                             </div>
                         </div>
-                        <div class="card-footer d-flex">
-                            <router-link to="/myproduct">
-                                <button type="button" class="btn btn-outline-secondary btn-sm">
-                                    <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                    查看更多
-                                </button>
-                            </router-link>
-                            <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
-                                <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                加到購物車
-                            </button>
-                        </div>
-                    </div>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-        </div>
-    </swiper-slide>
-    <swiper-slide>
-        <div class="container-fluid mb-5">
-            <div class="row d-flex justify-content-center">
-                <div class="" v-for="item in filterData5" :key="item.id">
-                    <div class="card border-0 shadow-lg">
-                        <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
-                            </h5>
-                            <p class="card-text">{{item.content}}</p>
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
-                                <div class="ml-auto">
-                                    <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
+                    </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <div class="container-fluid mb-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="w-100" v-for="item in filterData3" :key="item.id">
+                        <div class="card border-0 shadow-lg">
+                            <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
+                                </h5>
+                                <p class="card-text">{{item.content}}</p>
+                                <div class="d-flex justify-content-between align-items-baseline">
+                                    <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
+                                    <div class="ml-auto">
+                                        <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <router-link to="/myproduct">
-                                <button type="button" class="btn btn-outline-secondary btn-sm">
+                            <div class="card-footer d-flex">
+                                <router-link to="/myproduct">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
+                                        <font-awesome-icon :icon="['fas' ,'search']"></font-awesome-icon>
+                                        查看更多
+                                    </button>
+                                </router-link>
+                                <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
                                     <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                    查看更多
+                                    <font-awesome-icon :icon="['fas' ,'cart-plus']"></font-awesome-icon>
+                                    加到購物車
                                 </button>
-                            </router-link>
-                            <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
-                                <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
-                                加到購物車
-                            </button>
+                            </div>
                         </div>
-                    </div>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-        </div>
-    </swiper-slide>
-    <div class="swiper-pagination" slot="pagination"></div>
-    <div class="swiper-button-prev" slot="button-prev"></div>
-    <div class="swiper-button-next" slot="button-next"></div>
-</swiper>
+                    </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <div class="container-fluid mb-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="w-100" v-for="item in filterData4" :key="item.id">
+                        <div class="card border-0 shadow-lg">
+                            <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
+                                </h5>
+                                <p class="card-text">{{item.content}}</p>
+                                <div class="d-flex justify-content-between align-items-baseline">
+                                    <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
+                                    <div class="ml-auto">
+                                        <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex">
+                                <router-link to="/myproduct">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
+                                        <font-awesome-icon :icon="['fas' ,'search']"></font-awesome-icon>
+                                        查看更多
+                                    </button>
+                                </router-link>
+                                <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
+                                    <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
+                                    <font-awesome-icon :icon="['fas' ,'cart-plus']"></font-awesome-icon>
+                                    加到購物車
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <div class="container-fluid mb-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="w-100" v-for="item in filterData5" :key="item.id">
+                        <div class="card border-0 shadow-lg">
+                            <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage:`url(${item.imageUrl})`}"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <router-link to="/myproduct" class="h6 text-dark d-flex justify-content-center" @click.prevent="getProduct(item.id)">{{item.title}}</router-link>
+                                </h5>
+                                <p class="card-text">{{item.content}}</p>
+                                <div class="d-flex justify-content-between align-items-baseline">
+                                    <del class="h6" v-if="item.price!== item.origin_price">NT{{item.origin_price | currency}}</del>
+                                    <div class="ml-auto">
+                                        <div class="h5" v-if="item.price">NT{{item.price | currency}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex">
+                                <router-link to="/myproduct">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
+                                        <font-awesome-icon :icon="['fas' ,'search']"></font-awesome-icon>
+                                        查看更多
+                                    </button>
+                                </router-link>
+                                <button type="button" class="btn btn-outline-indigo btn-sm ml-auto" @click="addtoCart(item.id)">
+                                    <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
+                                    <font-awesome-icon :icon="['fas' ,'cart-plus']"></font-awesome-icon>
+                                    加到購物車
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
+            </div>
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+        <div class="swiper-button-prev" slot="button-prev"></div>
+        <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
+</div>
 </template>
 
 <script>
@@ -238,7 +252,7 @@ export default {
     methods: {
         getProducts() {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/products`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products`;
             vm.isLoading = true;
             this.$http.get(url).then((response) => {
                 vm.products = response.data.products;
@@ -249,7 +263,7 @@ export default {
         },
         getProduct(id) {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/product/${id}`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
             vm.status.loadingItem = id;
             this.$http.get(url).then((response) => {
                 vm.product = response.data.product;
@@ -259,7 +273,7 @@ export default {
         },
         addtoCart(id, qty = 1) {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/cart`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
             vm.status.loadingItem = id;
             const cart = {
                 product_id: id,
@@ -272,12 +286,11 @@ export default {
                 vm.status.loadingItem = '';
                 vm.getCart();
                 this.$bus.$emit('message:push', response.data.message, 'indigo');
-                this.$router.go(0)
             });
         },
         getCart() {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/cart`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
             vm.isLoading = true;
             this.$http.get(url).then((response) => {
                 vm.cart = response.data.data;

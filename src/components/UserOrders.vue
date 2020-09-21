@@ -7,7 +7,7 @@
                 <thead>
                     <th>品名</th>
                     <th>數量</th>
-                    <th>單價</th>
+                    <th>價格</th>
                 </thead>
                 <tbody>
                     <tr v-for="item in order.products" :key="item.id">
@@ -73,7 +73,7 @@ export default {
     methods: {
         getProducts() {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/products`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products`;
             vm.isLoading = true;
             this.$http.get(url).then((response) => {
                 vm.products = response.data.products;
@@ -83,7 +83,7 @@ export default {
         },
         getOrder() {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/order/${vm.orderId}`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
             vm.isLoading = true;
             this.$http.get(url).then((response) => {
                 vm.order = response.data.order;
@@ -93,7 +93,7 @@ export default {
         },
         payOrder() {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/pay/${vm.orderId}`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
             vm.isLoading = true;
             this.$http.post(url).then((response) => {
                 console.log(response);

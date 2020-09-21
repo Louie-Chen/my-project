@@ -136,8 +136,8 @@ export default {
     methods: {
         getCoupons(page = 1) {
             const vm = this;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/coupons?page=${page}`;
-            // console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPAH);
+            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
+            // console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
             vm.isLoading = true;
             this.$http.get(api).then(response => {
                 vm.isLoading = false;
@@ -166,18 +166,18 @@ export default {
         },
         updateCoupon() {
             // 新增 Coupon
-            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/coupon`;
+            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
             const vm = this;
             // 編輯 Coupon
             let httpMethod = "post";
             if (!vm.isNew) {
-                api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/coupon/${vm.tempCoupon.id}`;
+                api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
                 httpMethod = "put";
                 // 編輯完成後，將 vm.due_date 轉回 "Wed Jan 15 2020 16:01:52 GMT+0800 (台北標準時間)" 的格式
                 // vm.due_date = new Date(vm.tempCoupon.due_date * 1000); // 好像可有可無
             }
             // 共同程式碼
-            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPAH);
+            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
             this.$http[httpMethod](api, {
                 data: vm.tempCoupon
             }).then(response => {
@@ -198,8 +198,8 @@ export default {
         },
         deleteCoupon() {
             const vm = this;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/coupon/${vm.tempCoupon.id}`;
-            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPAH);
+            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
+            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
             this.$http.delete(api).then(response => {
                 console.log(response.data);
                 if (response.data.success) {

@@ -17,7 +17,7 @@
                         <thead style="border: 2px solid #6610f2;">
                             <th>品名</th>
                             <th width="90" class="text-center">數量</th>
-                            <th width="120">單價</th>
+                            <th width="120">價格</th>
                             <th width="30" class="text-center">刪除</th>
                         </thead>
                         <tbody style="border: 2px solid #6610f2;">
@@ -91,7 +91,7 @@ export default {
     methods: {
         getCart() {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/cart`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
             vm.isLoading = true;
             this.$http.get(url).then((response) => {
                 vm.cart = response.data.data;
@@ -102,17 +102,16 @@ export default {
         },
         removeCartItem(id) {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/cart/${id}`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
             vm.isLoading = true;
             this.$http.delete(url).then(() => {
                 vm.getCart();
                 vm.isLoading = false;
-                this.$router.go(0)
             });
         },
         addCouponCode() {
             const vm = this;
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/coupon`;
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
             const coupon = {
                 code: vm.coupon_code
             }

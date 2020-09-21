@@ -160,9 +160,9 @@ export default {
     },
     methods: {
         getProducts(page = 1) {
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/products?page=${page}`
+            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`
             const vm = this;
-            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPAH);
+            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
             vm.isLoading = true;
             this.$http.get(api).then((response) => {
                 console.log(response.data);
@@ -187,14 +187,14 @@ export default {
             console.log(item);
         },
         updateProduct() {
-            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/product`
+            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`
             let httpMethod = 'post';
             const vm = this;
             if (!vm.isNew) {
-                api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/product/${vm.tempProduct.id}`
+                api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
                 httpMethod = 'put';
             }
-            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPAH);
+            console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
             this.$http[httpMethod](api, {
                 data: vm.tempProduct
             }).then((response) => {
@@ -211,7 +211,7 @@ export default {
         },
         deleteProduct() {
             const vm = this;
-            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/product/${vm.tempProduct.id}`
+            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
             console.log(api);
             this.$http.delete(api, {
                 data: vm.tempProduct.id
@@ -233,7 +233,7 @@ export default {
             const vm = this;
             const formData = new FormData();
             formData.append('file-to-upload', uploadFile);
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPAH}/admin/upload`
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`
             vm.status.fileUploading = true;
             this.$http.post(url, formData, {
                 headers: {

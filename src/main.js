@@ -13,7 +13,7 @@ import VueI18n from 'vue-i18n';
 import AOS from 'aos';
 import BackTop from './views/backTop.vue';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faCartPlus ,faSearch,faKeyboard,faMouse,faShoppingBag,faDesktop,faHeadset} from '@fortawesome/free-solid-svg-icons'
 import { faGrinBeamSweat,faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
@@ -28,12 +28,17 @@ import dateFilter from './filters/date';
 import 'aos/dist/aos.css';
 import 'swiper/swiper-bundle.css';
 
-
 library.add(
   faUser,
-  faShoppingCart,
+  faCartPlus,
   faGrinBeamSweat,
   faTrashAlt,
+  faSearch,
+  faKeyboard,
+  faMouse,
+  faShoppingBag,
+  faDesktop,
+  faHeadset,
   )
   
 Swiper.use([Navigation, Pagination]);
